@@ -18,8 +18,7 @@
 
 \* 로드셀 [키트](https://www.coupang.com/vp/products/1370331139?vendorItemId=70397665972&isAddedCart=)를 살경우 hc-06을 제외한 부품을 사지 않아도 됨. 
 
-> 회로도 
-
+#### 회로도
 ![img1](scale_schematic.png)
 
 #### 핀 연결 정보
