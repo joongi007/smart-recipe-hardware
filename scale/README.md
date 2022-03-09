@@ -14,7 +14,7 @@
 |hc-06|무선 통신|37 x 17 x 5|y|1|[구매](https://www.coupang.com/vp/products/5767993544?itemId=9790717522&isAddedCart=)|
 |arduino uno|제어|69 x 53 x 12|y|1|[구매](https://www.coupang.com/vp/products/84959309?itemId=964056709&isAddedCart=)|
 |LCD 1602 IIC/I2C|화면|82 x 35 x 18|y|1|[구매](https://www.coupang.com/vp/products/316031012?itemId=1004961547&isAddedCart=)|
-|push button|버튼|6 x 6 x 5|y|2|[구매](https://www.coupang.com/vp/products/5763813992?itemId=9769915495&isAddedCart=)|
+|push button|영점조절,   전송|6 x 6 x 5|y|2|[구매](https://www.coupang.com/vp/products/5763813992?itemId=9769915495&isAddedCart=)|
 
 \* 로드셀 [키트](https://www.coupang.com/vp/products/1370331139?vendorItemId=70397665972&isAddedCart=)를 살경우 hc-06을 제외한 부품을 사지 않아도 됨. 
 
