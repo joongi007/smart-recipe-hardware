@@ -11,18 +11,18 @@
 |---|---|---|---|---|---|
 |HX-711|센서 보정|34 x 21 x 3|y|1|[구매](https://www.coupang.com/vp/products/5123229588?itemId=7004937339&isAddedCart=)|
 |4선식 로드셀 무게 센서|전자 저울|80 x 12.7 x 12.7|y|1| [구매](https://www.coupang.com/vp/products/1370338636?itemId=2402833361&isAddedCart=)|
-|hc-06|무선 통신|37 x 17 x 5|y|1|[구매](https://www.coupang.com/vp/products/5767993544?itemId=9790717522&isAddedCart=)|
+|hc-05|무선 통신|37 x 17 x 5|y|1|[구매](https://www.coupang.com/vp/products/248838944?itemId=787322013&isAddedCart=)|
 |arduino uno|제어|69 x 53 x 12|y|1|[구매](https://www.coupang.com/vp/products/84959309?itemId=964056709&isAddedCart=)|
 |LCD 1602 IIC/I2C|화면|82 x 35 x 18|y|1|[구매](https://www.coupang.com/vp/products/316031012?itemId=1004961547&isAddedCart=)|
 |push button|영점조절,   전송|6 x 6 x 5|y|2|[구매](https://www.coupang.com/vp/products/5763813992?itemId=9769915495&isAddedCart=)|
 
-\* 로드셀 [키트](https://www.coupang.com/vp/products/1370331139?vendorItemId=70397665972&isAddedCart=)를 살경우 hc-06을 제외한 부품을 사지 않아도 됨. 
+\* 로드셀 [키트](https://www.coupang.com/vp/products/1370331139?vendorItemId=70397665972&isAddedCart=)를 살경우 hc-05을 제외한 부품을 사지 않아도 됨. 
 
 #### 회로도
 ![img1](scale_schematic.png)
 
 #### 핀 연결 정보
-|선 색깔|아두이노|I2C LCD|hc-06|HX-711|버튼|
+|선 색깔|아두이노|I2C LCD|hc-05|HX-711|버튼|
 |----|---|---|---|---|---|
 |빨강|5v|Vcc|Vcc|Vcc|    |
 |검정|GND|GND|GND|GND|2|
