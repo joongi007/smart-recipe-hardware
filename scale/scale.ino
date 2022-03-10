@@ -9,10 +9,10 @@ void setup() {
   Serial.begin(9600);
   //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
   while (!Serial);
-  Serial.println("시리얼 통신 연결 성공");
-
+  Serial.println("connect complete");
+  
   //블루투스와 아두이노의 통신속도를 9600으로 설정
-  mySerial.begin(9600);
+  mySerial.begin(38400);
 }
 
 void loop() {
