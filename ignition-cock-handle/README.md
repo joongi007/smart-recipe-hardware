@@ -10,7 +10,7 @@
 |hc-05|무선 통신|37 x 17 x 5|y|1|[구매](https://www.coupang.com/vp/products/248838944?itemId=787322013&isAddedCart=)|
 |arduino uno|제어|69 x 53 x 12|y|1|[구매](https://www.coupang.com/vp/products/84959309?itemId=964056709&isAddedCart=)|
 |FSR-16|버너 손잡이용|10 x 10 x 17.6|y|1|[구매](https://www.icbanq.com/P007628094)|
-|저항 10K|풀다운|10 x 10 x 17.6|y|5|[구매](http://itempage3.auction.co.kr/DetailView.aspx?ItemNo=B691389744&frm3=V2)|
+|저항 10K|풀다운|10 x 10 x 17.6|y|4|[구매](http://itempage3.auction.co.kr/DetailView.aspx?ItemNo=B691389744&frm3=V2)|
 
 #### 회로도
 ![img1](ignition_cock_handle_schematic.png)
