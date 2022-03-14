@@ -32,49 +32,60 @@ import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    // gui
     Button mBtnBluetoothOn;
     Button mBtnBluetoothOff;
     TextView mTvBluetoothStatus;
+    // 첫번째 블루투스 앱 연결을 위한 변수
     TextView mTvReceiveData;
     TextView mTvSendData;
     Button mBtnConnect;
     Button mBtnSendData;
+    // 두번째 블루투스 앱 연결을 위한 변수
     TextView mTvReceiveData2;
     TextView mTvSendData2;
     Button mBtnConnect2;
     Button mBtnSendData2;
 
+    // 블루투스 연결을 위한 변수
     BluetoothAdapter mBluetoothAdapter;
+    BluetoothDevice mBluetoothDevice;
     Set<BluetoothDevice> mPairedDevices;
     List<String> mListPairedDevices;
 
+    // 두대의 블루투스 통신을 위한 변수
     Handler mBluetoothHandler;
     Handler mBluetoothHandler2;
     ConnectedBluetoothThread mThreadConnectedBluetooth;
     ConnectedBluetoothThread mThreadConnectedBluetooth2;
-    BluetoothDevice mBluetoothDevice;
     BluetoothSocket mBluetoothSocket;
     BluetoothSocket mBluetoothSocket2;
 
     final static int BT_MESSAGE_READ = 2;
     final static int BT_CONNECTING_STATUS = 3;
+    // 안드로이드와 블루투스 시리얼 통신을 위한 UUID
     final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // 블루투스가 켜져있는지 꺼져있는지 알려주기 위한 status
         mTvBluetoothStatus = findViewById(R.id.tvBluetoothStatus);
+        // 블루투스 on 버튼
         mBtnBluetoothOn = findViewById(R.id.btnBluetoothOn);
+        // 블루투스 off 버튼
         mBtnBluetoothOff = findViewById(R.id.btnBluetoothOff);
 
+        // 첫번째로 연결된 블루투스에서 수신한 데이터를 보여주는 뷰
         mTvReceiveData = findViewById(R.id.tvReceiveData);
+        // 첫번째로 연결된 블루투스에게 송신 할 데이터를 기입하는 뷰
         mTvSendData = findViewById(R.id.tvSendData);
+        // 첫번째로 연결할 블루투스를 지정하는 버튼
         mBtnConnect = findViewById(R.id.btnConnect);
+        // 첫번째로 연결된 블루투스에게 데이터를 전송하는 버튼
         mBtnSendData = findViewById(R.id.btnSendData);
 
+        // 두번째로 연결된 블루투스; 이외 위와 동일
         mBtnConnect2 = findViewById(R.id.btnConnect2);
         mBtnSendData2 = findViewById(R.id.btnSendData2);
         mTvReceiveData2 = findViewById(R.id.tvReceiveData2);
@@ -94,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mBtnConnect2.setOnClickListener(view -> listPairedDevices(2));
+        mBtnSendData2.setOnClickListener(view -> {
+            if(mThreadConnectedBluetooth2 != null) {
+                mThreadConnectedBluetooth2.write(mTvSendData2.getText().toString());
+                mTvSendData2.setText("");
+            }
+        });
+
         // 블루투스 핸들러로 블루투스 연결 뒤 수신된 데이터를 읽어와 ReceiveData 텍스트 뷰에 표시
         mBluetoothHandler = new Handler(Looper.getMainLooper()){
             public void handleMessage(android.os.Message msg){
@@ -104,15 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        mBtnConnect2.setOnClickListener(view -> listPairedDevices(2));
-        mBtnSendData2.setOnClickListener(view -> {
-            if(mThreadConnectedBluetooth2 != null) {
-                mThreadConnectedBluetooth2.write(mTvSendData2.getText().toString());
-                mTvSendData2.setText("");
-            }
-        });
-
-        // 블루투스 핸들러로 블루투스 연결 뒤 수신된 데이터를 읽어와 ReceiveData 텍스트 뷰에 표시
         mBluetoothHandler2 = new Handler(Looper.getMainLooper()){
             public void handleMessage(android.os.Message msg){
                 if(msg.what == BT_MESSAGE_READ){
@@ -213,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         try {
+            // type 1은 첫번째로 연결된 블루투스, 2는 두번째로 연결된 블루투스
             if(type == 1){
                 // 블루투스 소캣 생성, 연결 및 쓰레드로 통신
                     mBluetoothSocket = mBluetoothDevice.createRfcommSocketToServiceRecord(BT_UUID);
@@ -236,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // 블루투스 데이터 송수신을 위한 쓰레드
     private class ConnectedBluetoothThread extends Thread {
         private final Handler mmhandler;
         private final BluetoothSocket mmSocket;
