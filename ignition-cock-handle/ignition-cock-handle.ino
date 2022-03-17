@@ -62,10 +62,10 @@ void loop() {
   value = readSwitchValue();
   
   // value의 값이 0, 2, 4, 6 인 경우만 작동
-  if(value % 2 == 0 && value < 7){
+  if(value < 7){
     
   // value가 tmp에 저장된 값과 다르다면 블루투스로 값 전송
-    if(value != tmp){
+    if(value/2 != tmp/2){
       // 단수를 바꾼지 1초 이상이 된다면 블루투스로 전송.
       if(currentMillis - previousMillis > 999){
         tmp = value;
