@@ -61,7 +61,7 @@ void loop() {
   // 스위치에서 값을 읽어옴 이 값은 0~15 사이의 값
   value = readSwitchValue();
   
-  // value의 값이 0, 2, 4, 6 인 경우만 작동
+  // value의 값이 0~6 인 경우만 작동
   if(value < 7){
     
   // value가 tmp에 저장된 값과 다르다면 블루투스로 값 전송
