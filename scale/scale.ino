@@ -13,9 +13,9 @@ void setLcdText(String text, int row);
 void setup() {
   // 시리얼 통신의 속도를 9600으로 설정
   //시리얼통신이 연결되지 않았다면 코드 실행을 멈추고 무한 반복
-//  Serial.begin(9600);
-//  while (!Serial);
-//  Serial.println("connect complete");
+  Serial.begin(9600);
+  while (!Serial);
+  Serial.println("connect complete");
   
   //블루투스와 아두이노의 통신속도를 9600으로 설정
   mySerial.begin(38400);
@@ -25,7 +25,7 @@ void setup() {
   setLcdText(" * smart scale *",0);
 
   // scale 가중치조절
-  scale.set_scale(226.0);
+  scale.set_scale(521.052);
   // scale 영점 조절
   scale.tare(10);
 
@@ -56,21 +56,22 @@ void loop() {
   
   // 무게센서로 부터 값을 가져옴
   value = String(scale.get_units(), 1);
+  
   // 1초마다 LCD에 현재 g출력
   if(currentMillis - previousMillis > 999){
     sprintf(buf, "%14s g", value.c_str());
     setLcdText(String(buf), 1);
-//    Serial.println(buf);
+    Serial.println(buf);
     previousMillis = currentMillis;
   }
   
 
   // 영점 조절 버튼
   if(digitalRead(6) == 0){
-    setLcdText("zero set start", 0);
-//    Serial.print("영점조절 : ");
+    setLcdText("zero set start..", 0);
+    Serial.print("영점조절 : ");
     scale.tare(10);
-//    Serial.println(scale.get_offset());
+    Serial.println(scale.get_offset());
     setLcdText("zero set success ", 0);
   }
 
