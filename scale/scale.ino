@@ -147,6 +147,10 @@ void loop() {
     // 그 문자열이 disconnected 라면 현재 상태를 전달
     } else if (inputString == "disconnected"){
       setLcdText("disconnected", 0);
+
+      // 이 if문이 실행후 2초후에 lcd 화면 초기로 돌림.
+      previousMillis[1] = currentMillis;
+      pass = true;
     }
     // 변수 초기화
     inputString = "";
