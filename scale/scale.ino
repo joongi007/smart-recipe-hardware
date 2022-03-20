@@ -10,6 +10,10 @@
 #define error_range 0.2
 // 표기할 소수점 이하 자리수
 #define decimal_places 1
+// LCD 첫번째줄 갱신 주기
+#define first_line_lower_limit 2999
+// LCD 두번째줄 갱신 주기
+#define second_line_update_cycle 499
 
 //블루투스의 Tx, Rx핀을 2번 3번핀으로 설정
 SoftwareSerial mySerial(2, 3); 
@@ -30,6 +34,7 @@ void setup() {
   // LCD 사용 시작
   lcd.begin();
   setLcdText(" * smart scale *",0);
+  setLcdText("           0.0 g",1);
 
   // scale 가중치조절
   scale.set_scale(calibration_factor);
@@ -43,7 +48,7 @@ void setup() {
 // 블루투스로 통신된 데이터
 String inputString = "";
 // LCD에 1초마다 현재 g수를 표시하기위함
-unsigned long previousMillis = 0;
+unsigned long previousMillis[2] = {0, 0};
 // 형식적인 문자열을 보여주기위함
 char buf[16] = "";
 // 이전에 기록된 센서의 값
@@ -52,6 +57,8 @@ float previousValue = 0.0;
 float value=0.0;
 // value의 텍스트 값
 String valueText= "";
+// 구문 통과 여부 결정 변수
+bool pass = false;
 
 void loop() {
   unsigned long currentMillis = millis();
@@ -70,23 +77,34 @@ void loop() {
   
   // 무게센서로 부터 값을 가져옴
   value = scale.get_units();
+  // 센서가 +-0.2g의 오차를 가지므로 소프트웨어적으로 가변성 제거
   if((previousValue > value - error_range) && (previousValue < value + error_range)){
     if(value > -error_range && value < error_range) {
       value = 0;
-      previousValue = value;
     }else value = previousValue;
-  }else previousValue = value;
-  
+  }
+
+  // float to string.
   valueText = String(value, decimal_places);
   
-  // 1초마다 LCD에 현재 g출력
-  if(currentMillis - previousMillis > 999){
+  // second_line_update_cycle와 value를 기준으로 LCD에 표시
+  // value 값이 변동되면 lcd에 출력
+  if(currentMillis - previousMillis[0] > second_line_update_cycle
+        && value != previousValue){
     sprintf(buf, "%14s g", valueText.c_str());
     setLcdText(String(buf), 1);
     Serial.println(buf);
-    previousMillis = currentMillis;
+    previousValue = value;
+    previousMillis[0] = currentMillis;
   }
-  
+
+  // LCD가 변경된지 first_line_lower_limit를 초과하고
+  // pass가 참이면 LCD 첫번째줄 초기 텍스트로 전환
+  if(currentMillis - previousMillis[1] > first_line_lower_limit
+        && pass){
+    setLcdText(" * smart scale *",0);
+    pass = false;
+  }
 
   // 영점 조절 버튼
   if(digitalRead(6) == 0){
@@ -95,6 +113,10 @@ void loop() {
     scale.tare(10);
 //    Serial.println(scale.get_offset());
     setLcdText("zero set success ", 0);
+
+    // 이 if문이 실행후 2초후에 lcd 화면 초기로 돌림.
+    previousMillis[1] = currentMillis;
+    pass = true;
   }
 
   // 전송 버튼
@@ -105,6 +127,10 @@ void loop() {
     setLcdText(String(buf), 1);
     
     mySerial.write(valueText.c_str());
+
+    // 이 if문이 실행후 2초후에 lcd 화면 초기로 돌림.
+    previousMillis[1] = currentMillis;
+    pass = true;
   }
   
   // 블루투스에 수신된 문자열이 있을경우
