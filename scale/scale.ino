@@ -5,9 +5,9 @@
 #include "HX711.h"
 
 // 가중치 값
-#define calibration_factor 521.052
+#define calibration_factor 496.5158939121704
 // 오차 범위(g)
-#define error_range 0.198
+#define error_range 0.1999
 // 표기할 소수점 이하 자리수
 #define decimal_places 1
 // LCD 첫번째줄 갱신 주기
