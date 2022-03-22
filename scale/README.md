@@ -38,15 +38,11 @@
 \* 회로도에서 LCD와 LCM1602 사이의 연결된 모습은 LCD 1602 IIC/I2C의 회로도로 상관하지 않아도 됨.
 
 #### 실행
-- 무게 재기
-![img2](GIF/무게%20재기.gif)
-- 무게 송신
-![img2](GIF/무게%20송신.gif)
-- zero set
-![img2](GIF/zero%20set.gif)
-- 무게 요청에 의한 응답
-![img2](GIF/무게%20요청에%20의한%20응답.gif)
-- ㅋero set 요청
-![img2](GIF/zero%20set%20요청.gif)
-- 15초후 자동꺼짐
-![img2](GIF/15초후%20자동꺼짐.gif)
+- 무게 재기   
+![img2](GIF/무게%20재기.gif)   
+- 무게 송신   
+![img2](GIF/무게%20송신.gif)   
+- zero set   
+![img2](GIF/zero%20set.gif)   
+
+- ... 더많은 영상은 GIF 폴더를 확인하세요.
