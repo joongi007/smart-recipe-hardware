@@ -44,6 +44,7 @@ enum Axis { X, Y, Z };
 double nowZ;
 Axis df = X; // default
 int dfX=90, dfY=-90, dfZ=0; // default axis
+int level_0 = 23, level_1 = 68, level_2 = 113, level_3 = 150;
 unsigned long previousMillis = 0;
 String inputString = "";
 
@@ -79,10 +80,10 @@ void loop() {
       diff = abs(dfZ + angleFiZ);
       break;
   }
-  if(diff < 23) value = 0;
-  else if(diff<68) value = 1;
-  else if(diff<113) value = 2;
-  else if(diff<150) value = 3;
+  if(diff < level_0) value = 0;
+  else if(diff<level_1) value = 1;
+  else if(diff<level_2) value = 2;
+  else if(diff<level_3) value = 3;
 
   if(value != preValue){
     if(currentMillis - previousMillis > 999){
@@ -106,26 +107,74 @@ void loop() {
 
     // 그 문자열이 value? 이면 현재 스위치 값을 전송
     } else if(inputString.substring(0,3) == "set"){
-      String ag = inputString.substring(4);
-      int ag2 = atoi(ag.c_str());
       String t = inputString.substring(3,4);
       if(t == "X"){
         df = X;
-        if(ag2) dfX = ag2;
-        else dfX = 90;
       }else if(t == "Y"){
         df = Y;
-        if(ag2) dfY = ag2;
-        else dfY = -90;
       }else if(t == "Z"){
-        angleFiZ = 0;
+        angleFiZ = 0;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         df = Z;
-        if(ag2) dfZ = ag2;
-        else dfZ = 0;
-      }else {
+      }else if(t == "D"){
         df = X;
         dfX = 90; 
-      } 
+        level_0 = 23;
+        level_1 = 68;
+        level_2 = 113;
+        level_3 = 150;
+      }else if(t == "0"){
+        switch(df){
+          case X:
+            level_0 = abs(dfX + angleFiX) + 23;
+            break;
+          case Y:
+            level_0 = abs(dfY + angleFiY) + 23;
+            break;
+          case Z:
+            delay(10);
+            level_0 = abs(dfZ + angleFiZ) + 23;
+            break;
+        }
+      }else if(t == "1"){
+         switch(df){
+          case X:
+            level_1 = abs(dfX + angleFiX) + 23;
+            break;
+          case Y:
+            level_1 = abs(dfY + angleFiY) + 23;
+            break;
+          case Z:
+            delay(10);
+            level_1 = abs(dfZ + angleFiZ) + 23;
+            break;
+        }
+      }else if(t == "2"){
+        switch(df){
+          case X:
+            level_2 = abs(dfX + angleFiX) + 23;
+            break;
+          case Y:
+            level_2 = abs(dfY + angleFiY) + 23;
+            break;
+          case Z:
+            delay(10);
+            level_2 = abs(dfZ + angleFiZ) + 23;
+            break;
+        }
+      }else if(t == "3"){
+        switch(df){
+          case X:
+            level_3 = abs(dfX + angleFiX) + 23;
+            break;
+          case Y:
+            level_3 = abs(dfY + angleFiY) + 23;
+            break;
+          case Z:
+            delay(10);
+            level_3 = abs(dfZ + angleFiZ) + 23;
+            break;
+        }
+      }
     }
     // 변수 초기화
     inputString = "";
