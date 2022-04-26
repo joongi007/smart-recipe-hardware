@@ -9,29 +9,22 @@
 |부품   |역할|규격(mm)|필수|수량|링크|
 |---|---|---|---|---|---|
 |hc-05|무선 통신|37 x 17 x 5|y|1|[구매](https://www.coupang.com/vp/products/248838944?itemId=787322013&isAddedCart=)|
-|arduino uno|제어|69 x 53 x 12|y|1|[구매](https://www.coupang.com/vp/products/84959309?itemId=964056709&isAddedCart=)|
-|FSR-16|버너 손잡이용|10 x 10 x 17.6|y|1|[구매](https://www.icbanq.com/P007628094)|
-|저항 10K|풀다운|10 x 10 x 17.6|y|4|[구매](http://itempage3.auction.co.kr/DetailView.aspx?ItemNo=B691389744&frm3=V2)|
+|arduino nano|제어|45 x 19 x 19|y|1|[구매](https://www.coupang.com/vp/products/23992271?itemId=93366956&isAddedCart=)|
+|mpu6050|센서|21 x 11 x 7.5|y|1|[구매](https://www.coupang.com/vp/products/5016114191?itemId=6721993893&isAddedCart=)|
 
 #### 회로도
 ![img1](ignition_cock_handle_schematic.png)
 
 #### 핀 연결 정보
-|선 색깔|아두이노|hc-05|FSR-16|10KΩ|
-|----|---|---|---|----|
-|빨강|5v|Vcc|C||
-|검정|GND|GND|    |1|
-|흰색|2|TXD|    ||
-|초록|3|RXD|    ||
-|노랑|7|    |8|0|
-|회색|6|    |4|0|
-|파랑|5|    |2|0|
-|주황|4|    |1|0|
+|선 색깔|아두이노|hc-05|mpu6050|
+|----|---|---|---|
+|빨강|5v|Vcc|Vcc|
+|검정|GND|GND|GND|
+|흰색|3|RXD|    |
+|갈색|2|TXD|    |
+|노랑|A5|    |SCL|
+|보라|A4|    |SDA|
 
 #### 실행
 - 단수 조절시 자동전송   
-![img2](GIF/단수%20조절시%20자동전송.gif)   
-- 단수 요청에 의한 응답   
-![img2](GIF/단수%20요청에%20의한%20응답.gif)   
-- 단수 요청에 의한 응답2   
-![img2](GIF/단수%20요청에%20의한%20응답2.gif)   
+![img2](GIF/단수%20조절시%20자동전송.gif)
