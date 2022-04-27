@@ -6,10 +6,6 @@
 
 // 가중치 값
 #define calibration_factor 496.5158939121704
-// 오차 범위(g)
-#define error_range 0.1999
-// 표기할 소수점 이하 자리수
-#define decimal_places 1
 // LCD 첫번째줄 갱신 주기
 #define first_line_lower_limit 2999
 // LCD 두번째줄 갱신 주기
@@ -46,7 +42,7 @@ void setup() {
   // LCD 사용 시작
   lcd.begin();
   setLcdText(" * smart scale *",0);
-  setLcdText("           0.0 g",1);
+  setLcdText("             0 g",1);
 
   // scale 가중치조절
   scale.set_scale(calibration_factor);
@@ -66,7 +62,7 @@ unsigned long currentMillis = 0;
 // 형식적인 문자열을 보여주기위함
 char buf[16] = "";
 // 이전에 기록된 센서의 값
-float previousValue = 0.0;
+String previousValue = "";
 // 현재 센서로부터 들어오는 값
 float value=0.0;
 // value의 텍스트 값
@@ -93,27 +89,20 @@ void loop() {
   
   // 무게센서로 부터 값을 가져옴
   value = scale.get_units();
-  // 센서가 +-0.2g의 오차를 가지므로 소프트웨어적으로 가변성 제거
-  if((previousValue > value - error_range) 
-              && (previousValue < value + error_range)){
-    if(value > -error_range && value < error_range) {
-      value = 0;
-    }else value = previousValue;
-  }
 
   // float to string.
-  valueText = String(value, decimal_places);
-  
+  valueText = String(round(value));
+  if(valueText=="-0") valueText = String(0);
+
   // second_line_update_cycle와 value를 기준으로 LCD에 표시
-  // value 값이 변동되면 lcd에 출력
+  // valueText 값이 변동되면 lcd에 출력
   if(currentMillis - previousMillis[0] > second_line_update_cycle
-        && value != previousValue){
+        && valueText != previousValue){
     isActivity();
-    
     sprintf(buf, "%14s g", valueText.c_str());
     setLcdText(String(buf), 1);
 //    Serial.println(buf);
-    previousValue = value;
+    previousValue = valueText;
     previousMillis[0] = currentMillis;
   }
 
@@ -157,10 +146,6 @@ void loop() {
     } else if(inputString == "zero"){
       zeroSet();
 
-    // 그 문자열이 error range라면 오차범위 전송.
-    } else if(inputString == "error range"){
-      mySerial.write(String(error_range, 3).c_str());
-      
     // 그 문자열이 disconnected 라면 현재 상태를 전달
     }else if (inputString == "disconnected"){
       setLcdText("  disconnected  ", 0);

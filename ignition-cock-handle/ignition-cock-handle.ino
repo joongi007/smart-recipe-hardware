@@ -45,6 +45,7 @@ double nowZ;
 Axis df = X; // default
 int dfX=90, dfY=-90, dfZ=0; // default axis
 int level_0 = 23, level_1 = 68, level_2 = 113, level_3 = 150;
+int level_range = 23;
 unsigned long previousMillis = 0;
 String inputString = "";
 
@@ -118,6 +119,7 @@ void loop() {
       }else if(t == "D"){
         df = X;
         dfX = 90; 
+        level_range = 23;
         level_0 = 23;
         level_1 = 68;
         level_2 = 113;
@@ -125,56 +127,59 @@ void loop() {
       }else if(t == "0"){
         switch(df){
           case X:
-            level_0 = abs(dfX + angleFiX) + 23;
+            level_0 = abs(dfX + angleFiX) + level_range;
             break;
           case Y:
-            level_0 = abs(dfY + angleFiY) + 23;
+            level_0 = abs(dfY + angleFiY) + level_range;
             break;
           case Z:
             delay(10);
-            level_0 = abs(dfZ + angleFiZ) + 23;
+            level_0 = abs(dfZ + angleFiZ) + level_range;
             break;
         }
       }else if(t == "1"){
          switch(df){
           case X:
-            level_1 = abs(dfX + angleFiX) + 23;
+            level_1 = abs(dfX + angleFiX) + level_range;
             break;
           case Y:
-            level_1 = abs(dfY + angleFiY) + 23;
+            level_1 = abs(dfY + angleFiY) + level_range;
             break;
           case Z:
             delay(10);
-            level_1 = abs(dfZ + angleFiZ) + 23;
+            level_1 = abs(dfZ + angleFiZ) + level_range;
             break;
         }
       }else if(t == "2"){
         switch(df){
           case X:
-            level_2 = abs(dfX + angleFiX) + 23;
+            level_2 = abs(dfX + angleFiX) + level_range;
             break;
           case Y:
-            level_2 = abs(dfY + angleFiY) + 23;
+            level_2 = abs(dfY + angleFiY) + level_range;
             break;
           case Z:
             delay(10);
-            level_2 = abs(dfZ + angleFiZ) + 23;
+            level_2 = abs(dfZ + angleFiZ) + level_range;
             break;
         }
       }else if(t == "3"){
         switch(df){
           case X:
-            level_3 = abs(dfX + angleFiX) + 23;
+            level_3 = abs(dfX + angleFiX) + level_range;
             break;
           case Y:
-            level_3 = abs(dfY + angleFiY) + 23;
+            level_3 = abs(dfY + angleFiY) + level_range;
             break;
           case Z:
             delay(10);
-            level_3 = abs(dfZ + angleFiZ) + 23;
+            level_3 = abs(dfZ + angleFiZ) + level_range;
             break;
         }
       }
+    } else if(inputString.substring(0, 5) == "range"){
+      int v = atoi(inputString.substring(5).c_str());
+      level_range = v;
     }
     // 변수 초기화
     inputString = "";
